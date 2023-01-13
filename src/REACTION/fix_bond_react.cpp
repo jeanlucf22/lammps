@@ -847,6 +847,12 @@ void FixBondReact::post_integrate()
       fraction[i] = input->variable->compute_equal(var_id[PROB][i]);
   }
 
+  double maxp = 0.;
+  for (int i = 0; i < nreacts; i++) {
+    if(fraction[i]>maxp)maxp=fraction[i];
+  }
+  if(maxp<1.e-8) nevery_check = 1;
+
   if (nevery_check) {
     unlimit_bond();
     return;
